@@ -1,4 +1,4 @@
-vpc_name: "ce3s-vpc"
+vpc_name: "CE3S-vpc"
 
 # VPC Range
 vpcCidr: '172.20.0.0/16'
