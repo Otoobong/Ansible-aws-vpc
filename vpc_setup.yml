@@ -1,11 +1,11 @@
 - hosts : localhost
   connection: local
-  gather_fact: False
+  gather_facts: False
   task:
     - name: Import VPC Variable
       include_vars: vars/vpc_setup
 
-    - name: Create vprofile VPC
+    - name: Create CE3S VPC
       ec2_vpc_net:
         name: "{{vpc_name}}"
         cidr_block: "{{vpcCidr}}"
