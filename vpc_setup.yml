@@ -90,3 +90,13 @@
          resource_tags:
            Name: CE3S-privsub3
       register: privsub13_out
+
+    - name: Internet Gateway Setup
+      ec2_vpc_igw:
+        vpc_id: "{{vpcout.vpc.id}}"
+        region: "{{region}}"
+        state: "{{state}}"
+        resource_tags:
+          Name: CE3S_IGW
+        register: igw_out
+
