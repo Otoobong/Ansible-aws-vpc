@@ -89,7 +89,7 @@
          map_public: yes
          resource_tags:
            Name: CE3S-privsub3
-      register: privsub13_out
+      register: privsub3_out
 
     - name: Internet Gateway Setup
       ec2_vpc_igw:
@@ -138,3 +138,4 @@
           - dest: 0.0.0.0/0
             gateway_id: "{{ NATGW_out.nat_gateway_id }}"
       register: private_RT_out
+
