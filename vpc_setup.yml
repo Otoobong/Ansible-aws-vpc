@@ -27,7 +27,7 @@
          state: "{{state}}"
          cidr: "{{Public1Cidr}}"
          map_public: yes
-         ressource_tags:
+         resource_tags:
            name: CE3S-pubsub1
       register: pubsub1_out
 
