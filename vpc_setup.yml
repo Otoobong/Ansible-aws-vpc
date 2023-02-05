@@ -98,5 +98,5 @@
         state: "{{state}}"
         resource_tags:
           Name: CE3S_IGW
-        register: igw_out
+      register: igw_out
 
