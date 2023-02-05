@@ -30,3 +30,4 @@
           ressource_tags:
             name: CE3S-pubsub1
         register: pubsub1_out
+
