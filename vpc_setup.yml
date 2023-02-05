@@ -28,7 +28,7 @@
          cidr: "{{Public1Cidr}}"
          map_public: yes
          resource_tags:
-           name: CE3S-pubsub1
+           Name: CE3S-pubsub1
       register: pubsub1_out
 
     - name: Create Public Subnet 2 in Zone2
@@ -40,7 +40,7 @@
          cidr: "{{Public2Cidr}}"
          map_public: yes
          resource_tags:
-           name: CE3S-pubsub2
+           Name: CE3S-pubsub2
       register: pubsub2_out
 
     - name: Create Public Subnet 3 in Zone3
@@ -52,7 +52,7 @@
          cidr: "{{Public3Cidr}}"
          map_public: yes
          resource_tags:
-           name: CE3S-pubsub3
+           Name: CE3S-pubsub3
       register: pubsub3_out
 
     - name: Create Private Subnet 1 in Zone1
@@ -64,7 +64,7 @@
          cidr: "{{Private1Cidr}}"
          map_public: yes
          resource_tags:
-           name: CE3S-privsub1
+           Name: CE3S-privsub1
       register: privsub1_out
 
     - name: Create Private Subnet 2 in Zone2
@@ -76,7 +76,7 @@
          cidr: "{{Private2Cidr}}"
          map_public: yes
          resource_tags:
-           name: CE3S-privsub2
+           Name: CE3S-privsub2
       register: privsub2_out
 
     - name: Create Private Subnet 3 in Zone3
@@ -88,5 +88,5 @@
          cidr: "{{Private3Cidr}}"
          map_public: yes
          resource_tags:
-           name: CE3S-privsub3
+           Name: CE3S-privsub3
       register: privsub13_out
