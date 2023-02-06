@@ -19,14 +19,14 @@
     - name: Save created file into bastion-key.pem
       copy:
         content: "{{ key_out.key.private_key }}"
-        dest: "{{ ./bastion-key.pem }}"
+        dest: "K./bastion-key.pem"
         mode: 0600
         when: key_out.changed
 
     - name: Create SG group for bastion host
       ec2_group:
-        name: BAstion-host-sg
-        descritption: Allow port 22 from everywhere and tall port within sg
+        name: Bastion-host-sg
+        descritption: Allow port 22 from everywhere and tall port within SG
         region: "{{ region }}"
         vpc_id: "{{ vpcid }}"
         rules:
