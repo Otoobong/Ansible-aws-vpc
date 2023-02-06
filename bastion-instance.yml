@@ -23,7 +23,7 @@
         mode: 0600
         when: key_out.changed
 
-    - name: Create SG group for bastion host
+    - name: Create Sec Grp for bastion host
       ec2_group:
         name: Bastion-host-sg
         descritption: Allow port 22 from everywhere and tall port within SG
@@ -53,6 +53,7 @@
           Name: "Bastion_host"
           Project: CE3S
           Owner: KEJOGG DevOps Team
-        group_id: "{{ BastionSG_out }}"
+        group_id: "{{ BastionSG_out.group_id }}"
         vpc_subnet_id: "{{ pubsub1id }}"
       register: bastionHost_out
+
