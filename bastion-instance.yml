@@ -40,7 +40,7 @@
       ec2:
         key_name: CE3S-key
         region: "{{ region }}"
-        instance_type: t2micro
+        instance_type: t2.micro
         image: "{{ bastion_ami }}"
         wait: yes
         wait_timeout: 300
