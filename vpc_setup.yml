@@ -164,7 +164,7 @@
         privsub3id: "{{ privsub3_out.subnet.id }}"
         igwid: "{{ igw_out.gateway_id }}"
         NATGWid: "{{ NATGW_out.nat_gateway_id }}"
-        public_RTid: "{{ public_RT_out.route_table.id} }"
+        public_RTid: "{{ public_RT_out.route_table.id }}"
         private_RTid: "{{ private_RT_out.route_table.id }}"
         cacheable: yes
 
