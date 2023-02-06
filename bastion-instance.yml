@@ -45,7 +45,7 @@
         wait: yes
         wait_timeout: 300
         instance_tags:
-          Name: "Bastion-host"
+          Name: "Bastion_host"
           Project: CE3S
           Owner: KEJOGG DevOps Team
         group_id: "{{ BastionSG_out }}"
