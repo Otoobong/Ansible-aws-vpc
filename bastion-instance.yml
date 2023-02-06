@@ -2,9 +2,9 @@
 - name: Setup CE3S bastion host
   hosts: localhost
   connection: local
-  gather_facts: False
+  gather_facts: no
   tasks:
-    - name: Import VPC Variable
+    - name: Import VPC Setup Variable
       include_vars: vars/bastion_setup
 
     - name: Import VPC Setup Variable
@@ -50,7 +50,7 @@
           Owner: KEJOGG DevOps Team
         exact_count: 1
         count_tag:
-          Name: "Bastion_host
+          Name: "Bastion_host"
           Project: CE3S
           Owner: KEJOGG DevOps Team
         group_id: "{{ BastionSG_out }}"
