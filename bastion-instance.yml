@@ -48,6 +48,11 @@
           Name: "Bastion_host"
           Project: CE3S
           Owner: KEJOGG DevOps Team
+        exact_count: 1
+        count_tag:
+          Name: "Bastion_host
+          Project: CE3S
+          Owner: KEJOGG DevOps Team
         group_id: "{{ BastionSG_out }}"
         vpc_subnet_id: "{{ pubsub1id }}"
       register: bastionHost_out
