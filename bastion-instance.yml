@@ -21,12 +21,12 @@
         content: "{{ key_out.key.private_key }}"
         dest: "./bastion-key.pem"
         mode: 0600
-        when: key_out.changed
+      when: key_out.changed
 
     - name: Create Sec Grp for bastion host
       ec2_group:
         name: Bastion-host-sg
-        descritption: Allow port 22 from everywhere and tall port within SG
+        descritption: Allow port 22 from everywhere and all port within sg
         region: "{{ region }}"
         vpc_id: "{{ vpcid }}"
         rules:
@@ -53,7 +53,6 @@
           Name: "Bastion_host"
           Project: CE3S
           Owner: KEJOGG DevOps Team
-        group_id: "{{ BastionSG_out.group_id }}"
+        group_id: "{{ BastionSG_out }}"
         vpc_subnet_id: "{{ pubsub1id }}"
       register: bastionHost_out
-
