@@ -23,3 +23,37 @@
         dest: "./loginkey-ce3s.pem"
         mode: 0600
       when: ce3s_out.changed
+
+    - name: Create Sec Grp for CE3S Stack
+      ec2_group:
+        name: CE3Selb-sg
+        description: Allow port 80 from everywhere and all port within sg
+        region: "{{ region }}"
+        vpc_id: "{{ vpcid }}"
+        rules:
+          - proto: tcp
+            from_port: 80
+            to_port: 80
+            cidr_ip: "{{ MYIP }}"
+      register: CE3Selb-sg_out
+
+    - name: Create Sec Grp for CE3S Stack
+      ec2_group:
+        name: CE3Selb-sg
+        description: Allow port 22 from everywhere and all port within sg
+        region: "{{ region }}"
+        vpc_id: "{{ vpcid }}"
+        purge_rules: no
+        rules:
+          - proto: tcp
+            from_port: 80
+            to_port: 80
+            cidr_ip: "{{ MYIP }}"
+            group_id: "{{CE3Selb-sg_out.group_id}}"
+
+          - proto: tcp
+            from_port: 22
+            to_port: 22
+            cidr_ip: "{{ MYIP }}"
+            group_id: "{{BastionSGid}}"
+      register: CE3Selb-sg_out
