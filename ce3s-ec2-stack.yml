@@ -9,7 +9,7 @@
       include_vars: vars/vpc-output_vars
 
     - name: Import ec2StackSetup Variable
-      include_vars: vars/ec3sStackSetup
+      include_vars: vars/ec2StackSetup
 
     - name: Create CE3S ec2 key
       ec2_key:
