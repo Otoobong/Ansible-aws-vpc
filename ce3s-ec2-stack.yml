@@ -1,0 +1,25 @@
+---
+- name: Setup CE3S bastion host
+  hosts: localhost
+  connection: local
+  gather_facts: no
+  tasks:
+
+    - name: Import VPC setup Variable
+      include_vars: vars/vpc-output_vars
+
+    - name: Import ec2StackSetup Variable
+      include_vars: vars/ec3sStackSetup
+
+    - name: Create CE3S ec2 key
+      ec2_key:
+        name: CE3Skey
+        region: "{{ region }}"
+      register: ce3s_out
+
+    - name: Save private key into file loginkey-ce3s.pem
+      copy:
+        content: "{{ key_out.key.private_key }}"
+        dest: "./loginkey-ce3s.pem"
+        mode: 0600
+      when: ce3s_out.changed
