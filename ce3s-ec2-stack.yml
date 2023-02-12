@@ -67,4 +67,5 @@
         purge_rules: no
         rules:
           - proto: all
-            group_id: "{{ CE3Sstacktack_output.group_id }}"
+            group_id: "{{ CE3Sstack_output.group_id }}"
+
