@@ -56,4 +56,15 @@
             to_port: 22
             cidr_ip: "{{ MYIP }}"
             group_id: "{{ BastionSGid }}"
-      register: CE3Selb-sg_out
+      register: CE3Sstack-sg_out
+
+    - name: Update security group with its own id
+      ec2_group:
+        name: CE3Sstack-sg
+        description: Allow port 22 from everywhere and all port within sg
+        region: "{{ region }}"
+        vpc_id: "{{ vpcid }}"
+        purge_rules: no
+        rules:
+          - proto: all
+            group_id: "{{ CE3Sstacktack_output.group_id }}"
