@@ -49,7 +49,7 @@
             from_port: 80
             to_port: 80
             cidr_ip: "{{ MYIP }}"
-            group_id: "{{CE3Selb-sg_out.group_id}}"
+            group_id: "{{ CE3Selb-sg_out.group_id }}"
 
           - proto: tcp
             from_port: 22
