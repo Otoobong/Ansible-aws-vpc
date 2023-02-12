@@ -22,7 +22,7 @@
         content: "{{ CE3Skey_out.key.private_key }}"
         dest: "./loginkey_ce3s.pem"
         mode: 0600
-      when: CE3Sskey_out.changed
+      when: CE3Skey_out.changed
 
     - name: Create Security Group for Load Balancer
       ec2_group:
