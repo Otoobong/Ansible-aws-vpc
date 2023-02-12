@@ -1,5 +1,5 @@
 ---
-- name: Setup CE3S bastion host
+- name: Setup CE3S Stack
   hosts: localhost
   connection: local
   gather_facts: no
@@ -8,25 +8,25 @@
     - name: Import VPC setup Variable
       include_vars: vars/vpc-output_vars
 
-    - name: Import ec2StackSetup Variable
+    - name: Import CE3S setup Variable
       include_vars: vars/ec2StackSetup
 
     - name: Create CE3S ec2 key
       ec2_key:
         name: CE3Skey
         region: "{{ region }}"
-      register: ce3s_out
+      register: CE3Skey_out
 
-    - name: Save private key into file loginkey-ce3s.pem
+    - name: Save private key into file loginkey_ce3s.pem
       copy:
-        content: "{{ key_out.key.private_key }}"
-        dest: "./loginkey-ce3s.pem"
+        content: "{{ CE3Skey_out.key.private_key }}"
+        dest: "./loginkey_ce3s.pem"
         mode: 0600
-      when: ce3s_out.changed
+      when: CE3Sskey_out.changed
 
-    - name: Create Sec Grp for CE3S Stack
+    - name: Create Security Group for Load Balancer
       ec2_group:
-        name: CE3Selb-sg
+        name: CE3SELB-sg
         description: Allow port 80 from everywhere and all port within sg
         region: "{{ region }}"
         vpc_id: "{{ vpcid }}"
@@ -34,12 +34,12 @@
           - proto: tcp
             from_port: 80
             to_port: 80
-            cidr_ip: "{{ MYIP }}"
-      register: CE3Selb-sg_out
+            cidr_ip: 0.0.0.0/0
+      register: CE3SELBSG_out
 
-    - name: Create Sec Grp for CE3S Stack
+    - name: Create Security Group for CE3S Stack
       ec2_group:
-        name: CE3Selb-sg
+        name: CE3SStack-sg
         description: Allow port 22 from everywhere and all port within sg
         region: "{{ region }}"
         vpc_id: "{{ vpcid }}"
@@ -48,24 +48,22 @@
           - proto: tcp
             from_port: 80
             to_port: 80
-            cidr_ip: "{{ MYIP }}"
-            group_id: "{{ CE3Selb-sg_out.group_id }}"
+            group_id: "{{ CE3SELBSG_out.group_id }}"
 
           - proto: tcp
             from_port: 22
             to_port: 22
-            cidr_ip: "{{ MYIP }}"
             group_id: "{{ BastionSGid }}"
-      register: CE3Sstack-sg_out
+      register: CE3SStack-sg_out
 
-    - name: Update security group with its own id
+    - name: Update Security Group with its own sg id
       ec2_group:
-        name: CE3Sstack-sg
+        name: CE3SStack-sg
         description: Allow port 22 from everywhere and all port within sg
         region: "{{ region }}"
         vpc_id: "{{ vpcid }}"
         purge_rules: no
         rules:
           - proto: all
-            group_id: "{{ CE3Sstack_output.group_id }}"
+            group_id: "{{ CE3SStack-sg_out.group_id }}"
 
