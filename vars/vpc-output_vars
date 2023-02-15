@@ -13,5 +13,8 @@ public_RTid: rtb-01bbdf0eebd640736
 private_RTid: rtb-0e398e1234bb98c30
 bastionSGid:
 
+# BEGIN ANSIBLE MANAGED BLOCK
+BastionSGid: sg-0fc0427adb0c87801
+# END ANSIBLE MANAGED BLOCK
 
-MYIP: 0.0.0.0/0
+
