@@ -91,9 +91,9 @@
     - name: Creating tomcat app01
       ec2:
         key_name: CE3Skey
-        region: "{{region}}"
+        region: "{{ region }}"
         instance_type: t2.micro
-        image: "{{tomcat_ami}}"
+        image: "{{ tomcat_ami }}"
         wait: yes
         wait_timeout: 300
         instance_tags:
@@ -105,16 +105,16 @@
           Name: "app01"
           Project: CE3S
           Owner: KEJOGG DevOps Team
-        group_id: "{{CE3SStackSG_out.group_id}}"
-        vpc_subnet_id: "{{privsub1id}}"
+        group_id: "{{ CE3SStackSG_out.group_id }}"
+        vpc_subnet_id: "{{ privsub1id }}"
       register: app01_out
 
     - name: Creating memcache mc01
       ec2:
         key_name: CE3Skey
-        region: "{{region}}"
+        region: "{{ region }}"
         instance_type: t2.micro
-        image: "{{memcache_ami}}"
+        image: "{{ memcache_ami }}"
         wait: yes
         wait_timeout: 300
         instance_tags:
@@ -126,16 +126,16 @@
           Name: "mc01"
           Project: CE3S
           Owner: KEJOGG DevOps Team
-        group_id: "{{CE3SStackSG_out.group_id}}"
-        vpc_subnet_id: "{{privsub1id}}"
+        group_id: "{{ CE3SStackSG_out.group_id }}"
+        vpc_subnet_id: "{{ privsub1id }}"
       register: mc01_out
 
     - name: Creating RabbitMQ rmq01
       ec2:
         key_name: CE3Skey
-        region: "{{region}}"
+        region: "{{ region }}"
         instance_type: t2.micro
-        image: "{{rmq_ami}}"
+        image: "{{ rmq_ami }}"
         wait: yes
         wait_timeout: 300
         instance_tags:
@@ -147,16 +147,16 @@
           Name: "rmq01"
           Project: CE3S
           Owner: KEJOGG DevOps Team
-        group_id: "{{CE3SStackSG_out.group_id}}"
-        vpc_subnet_id: "{{privsub1id}}"
+        group_id: "{{ CE3SStackSG_out.group_id }}"
+        vpc_subnet_id: "{{ privsub1id }}"
       register: rmq01_out
 
     - name: Creating Mysql db01
       ec2:
         key_name: CE3Skey
-        region: "{{region}}"
+        region: "{{ region }}"
         instance_type: t2.micro
-        image: "{{mysql_ami}}"
+        image: "{{ mysql_ami }}"
         wait: yes
         wait_timeout: 300
         instance_tags:
@@ -168,27 +168,10 @@
           Name: "db01"
           Project: CE3S
           Owner: KEJOGG DevOps Team
-        group_id: "{{CE3SStackSG_out.group_id}}"
-        vpc_subnet_id: "{{privsub1id}}"
+        group_id: "{{ CE3SStackSG_out.group_id }}"
+        vpc_subnet_id: "{{ privsub1id }}"
       register: db01_out
 
     - debug:
         var: db01_out.tagged_instances[0].id
 
-    - local_action:
-        module: ec2_elb_lb
-        name: "vprofile-elb"
-        region: "{{region}}"
-        state: present
-        instance_ids:
-          - "{{ web01_out.tagged_instances[0].id }}"
-        purge_instance_ids: true
-        security_group_ids: "{{ vproELBSG_out.group_id }}"
-        subnets:
-          - "{{ pubsub1id }}"
-          - "{{ pubsub2id }}"
-          - "{{ pubsub3id }}"
-        listeners:
-          - protocol: http # options are http, https, ssl, tcp
-            load_balancer_port: 80
-            instance_port: 80
