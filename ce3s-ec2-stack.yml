@@ -4,7 +4,6 @@
   connection: local
   gather_facts: no
   tasks:
-
     - name: Import VPC setup Variable
       include_vars: vars/vpc-output_vars
 
@@ -249,3 +248,4 @@
           ansible_user=ubuntu
           ansible_ssh_private_key_file=loginkey_ce3s.pem
           #ansible_python_interpreter=/usr/bin/python3
+
